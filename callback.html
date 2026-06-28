@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OAuth Callback - Jambo FNLB</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .callback-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+    }
+    .callback-card {
+      max-width: 500px;
+      padding: 2rem;
+    }
+    .success-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="callback-container">
+    <article class="card callback-card">
+      <div class="success-icon">✓</div>
+      <h1>OAuth Callback Received</h1>
+      <p>Your authorization has been processed. You can now close this window or return to the app.</p>
+      <p>
+        <a class="btn btn-primary" href="index.html">Back to Home</a>
+      </p>
+      <hr style="margin: 2rem 0; border: none; border-top: 1px solid #e0e0e0;">
+      <p style="font-size: 0.9rem; color: #666;">
+        <strong>For developers:</strong> Query parameters from your OAuth provider will be available in the URL. 
+        Parse the authorization code and exchange it with your OAuth provider's token endpoint.
+      </p>
+    </article>
+  </div>
+
+  <script>
+    // Log OAuth callback parameters (for debugging)
+    console.log('OAuth Callback URL:', window.location.href);
+    console.log('URL Params:', new URLSearchParams(window.location.search));
+    
+    // Optional: Auto-close after successful auth (customize as needed)
+    // setTimeout(function() {
+    //   window.close();
+    // }, 3000);
+  </script>
+</body>
+</html>
