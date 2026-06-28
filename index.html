@@ -1,73 +1,46 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Jambo - Install & OAuth</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jambo FNLB App</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
-  <header class="site-header">
-    <div class="container">
-      <h1>Jambo</h1>
-      <nav>
-        <a href="index.html">Home</a>
-        <a href="tos.html">Terms of Service</a>
-        <a href="privacy.html">Privacy Policy</a>
-      </nav>
-    </div>
+
+  <header>
+    <h1>Jambo App</h1>
+    <p>FNLB Bot Lobby System</p>
   </header>
 
-  <main class="container">
+  <main>
     <section class="hero">
-      <h2>Official site for OAuth verification & partner requirements</h2>
-      <p>Use this static site for OAuth/partner app verification and to provide links required by platforms.</p>
+      <h2>Welcome</h2>
+      <p>Click below to install and access the app.</p>
+
+      <!-- ✅ FIXED INSTALL BUTTON -->
+      <a href="/" class="btn">Install App</a>
     </section>
 
-    <section id="install" class="card">
-      <h3>Install App</h3>
-      <p>Click the button below to install the app (placeholder).</p>
-      <p class="muted">Replace this with your real install URL</p>
-      <p><a class="btn" href="https://example.com/install" target="_blank" rel="noopener">Install App (placeholder)</a></p>
-    </section>
-
-    <section class="card">
-      <h3>OAuth / Partner App Setup</h3>
-      <p>Scopes (placeholders) — include at least one scope your app needs:</p>
+    <section class="links">
+      <h3>Legal</h3>
       <ul>
-        <li><code>identify</code> (example)</li>
-        <li><code>read</code> (example)</li>
-        <li><code>bot</code> (example)</li>
+        <li><a href="tos.html">Terms of Service</a></li>
+        <li><a href="privacy.html">Privacy Policy</a></li>
       </ul>
-
-      <h4>Redirect URL</h4>
-      <p>When completing the OAuth flow the provider will redirect users back to your app at the redirect URL you register. Example:</p>
-      <pre>https://yourusername.github.io/callback</pre>
-      <p class="muted">Replace this with your real OAuth redirect URL</p>
     </section>
 
-    <section class="card">
-      <h3>Notes</h3>
-      <ul>
-        <li>This is a static site only — no backend required.</li>
-        <li>Deploy this repository on GitHub Pages to host at https://yourusername.github.io/Jambo- (or configure a custom domain).</li>
-      </ul>
+    <section class="oauth">
+      <h3>OAuth Info</h3>
+      <p>Redirects and scopes are handled by FNLB system.</p>
+      <a href="oauth-metadata.json">View OAuth Metadata</a>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container">
-      <p>&copy; <span id="year"></span> Jambo</p>
-      <nav class="footer-links">
-        <a href="tos.html">Terms of Service</a>
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="#install">Install App</a>
-      </nav>
-    </div>
+  <footer>
+    <p>© 2026 Jambo FNLB App</p>
   </footer>
 
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
 </body>
 </html>
