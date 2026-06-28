@@ -1,46 +1,114 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Jambo FNLB App</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <h1>Jambo</h1>
+        <p class="tagline">FNLB Bot Lobby System</p>
+      </div>
 
-  <header>
-    <h1>Jambo App</h1>
-    <p>FNLB Bot Lobby System</p>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a class="nav-link" href="index.html">Home</a>
+        <a class="nav-link" href="tos.html">Terms of Service</a>
+        <a class="nav-link" href="privacy.html">Privacy Policy</a>
+      </nav>
+
+      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation">
+        ☰
+      </button>
+    </div>
+    <div id="nav-menu" class="nav-menu" hidden>
+      <a class="nav-link" href="index.html">Home</a>
+      <a class="nav-link" href="tos.html">Terms of Service</a>
+      <a class="nav-link" href="privacy.html">Privacy Policy</a>
+    </div>
   </header>
 
   <main>
-    <section class="hero">
-      <h2>Welcome</h2>
-      <p>Click below to install and access the app.</p>
+    <section class="hero container">
+      <div class="hero-content">
+        <h2>Welcome to Jambo</h2>
+        <p class="lead">Official static site for OAuth verification and partner app requirements.</p>
+        <p class="actions">
+          <!-- Install button opens main site in a new tab -->
+          <a class="btn btn-primary" href="https://jambofnlb.netlify.app" target="_blank" rel="noopener noreferrer" aria-label="Open Jambo main site">Install App</a>
+          <a class="btn btn-secondary" href="oauth-metadata.json" aria-label="View OAuth metadata">View OAuth Metadata</a>
+        </p>
+      </div>
 
-      <!-- ✅ FIXED INSTALL BUTTON -->
-      <a href="/" class="btn">Install App</a>
+      <div class="hero-illustration" aria-hidden="true">
+        <!-- Decorative illustration area (can be replaced by an image) -->
+      </div>
     </section>
 
-    <section class="links">
-      <h3>Legal</h3>
-      <ul>
-        <li><a href="tos.html">Terms of Service</a></li>
-        <li><a href="privacy.html">Privacy Policy</a></li>
-      </ul>
-    </section>
+    <section class="container grid">
+      <article class="card">
+        <h3>Install</h3>
+        <p>Click "Install App" to open the main app site. This will open in a new tab so you can keep this page for partner verification or docs.</p>
+      </article>
 
-    <section class="oauth">
-      <h3>OAuth Info</h3>
-      <p>Redirects and scopes are handled by FNLB system.</p>
-      <a href="oauth-metadata.json">View OAuth Metadata</a>
+      <aside class="card">
+        <h3>OAuth / Partner App Setup</h3>
+        <p>Register your redirect URL(s) and minimal scopes required by your integration. Use the following example pattern for GitHub Pages deployments or your own domain:</p>
+        <pre class="mono">https://yourusername.github.io/Jambo-/callback</pre>
+        <p>Make sure the redirect URL you register with the provider matches the one used by your app.</p>
+      </aside>
+
+      <article class="card">
+        <h3>Legal</h3>
+        <ul>
+          <li><a href="tos.html">Terms of Service</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h3>Notes</h3>
+        <ul>
+          <li>This is a static site — no backend required for verification pages.</li>
+          <li>Deploy to GitHub Pages or any static host (Netlify, Vercel) for a public URL.</li>
+        </ul>
+      </article>
     </section>
   </main>
 
-  <footer>
-    <p>© 2026 Jambo FNLB App</p>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> Jambo — FNLB App</p>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="tos.html">Terms</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="oauth-metadata.json">OAuth Metadata</a>
+      </nav>
+    </div>
   </footer>
 
+  <script>
+    // Set current year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile nav toggle
+    (function () {
+      var btn = document.querySelector('.nav-toggle');
+      var menu = document.getElementById('nav-menu');
+      if (!btn || !menu) return;
+      btn.addEventListener('click', function () {
+        var expanded = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!expanded));
+        if (expanded) {
+          menu.hidden = true;
+        } else {
+          menu.hidden = false;
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
