@@ -5,6 +5,76 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Jambo FNLB App</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background-color: #fefefe;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 500px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      border-bottom: 1px solid #e0e0e0;
+      padding-bottom: 10px;
+    }
+
+    .modal-header h2 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #666;
+    }
+
+    .modal-close:hover {
+      color: #000;
+    }
+
+    .modal-body pre {
+      background-color: #f5f5f5;
+      padding: 15px;
+      border-radius: 4px;
+      overflow-x: auto;
+      border: 1px solid #ddd;
+    }
+
+    .modal-body code {
+      font-family: 'Courier New', monospace;
+      font-size: 0.9rem;
+      color: #333;
+    }
+  </style>
 </head>
 <body>
   <header class="site-header">
@@ -39,7 +109,7 @@
         <p class="actions">
           <!-- Install button opens main site's install page in a new tab -->
           <a class="btn btn-primary" href="https://jambofnlb.netlify.app/install.html" target="_blank" rel="noopener noreferrer" aria-label="Open Jambo install page">Install App</a>
-          <a class="btn btn-secondary" href="oauth-metadata.json" aria-label="View OAuth metadata">View OAuth Metadata</a>
+          <button class="btn btn-secondary" id="oauthBtn" aria-label="View OAuth metadata">View OAuth Metadata</button>
         </p>
       </div>
 
@@ -79,13 +149,26 @@
     </section>
   </main>
 
+  <!-- OAuth Metadata Modal -->
+  <div id="oauthModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>OAuth Metadata</h2>
+        <button class="modal-close" id="closeModal" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <pre><code id="metadataContent"></code></pre>
+      </div>
+    </div>
+  </div>
+
   <footer class="site-footer">
     <div class="container footer-inner">
       <p>© <span id="year"></span> Jambo — FNLB App</p>
       <nav class="footer-nav" aria-label="Footer navigation">
         <a href="tos.html">Terms</a>
         <a href="privacy.html">Privacy</a>
-        <a href="oauth-metadata.json">OAuth Metadata</a>
+        <a href="oauth-metadata.json">OAuth Metadata (JSON)</a>
       </nav>
     </div>
   </footer>
@@ -106,6 +189,52 @@
           menu.hidden = true;
         } else {
           menu.hidden = false;
+        }
+      });
+    })();
+
+    // OAuth Metadata Modal
+    (function () {
+      var oauthBtn = document.getElementById('oauthBtn');
+      var modal = document.getElementById('oauthModal');
+      var closeBtn = document.getElementById('closeModal');
+      var metadataContent = document.getElementById('metadataContent');
+
+      if (!oauthBtn || !modal || !closeBtn) return;
+
+      // Open modal and fetch metadata
+      oauthBtn.addEventListener('click', function () {
+        fetch('oauth-metadata.json')
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (data) {
+            metadataContent.textContent = JSON.stringify(data, null, 2);
+            modal.classList.add('active');
+          })
+          .catch(function (error) {
+            console.error('Error loading metadata:', error);
+            metadataContent.textContent = 'Error loading OAuth metadata';
+            modal.classList.add('active');
+          });
+      });
+
+      // Close modal on X button
+      closeBtn.addEventListener('click', function () {
+        modal.classList.remove('active');
+      });
+
+      // Close modal on background click
+      modal.addEventListener('click', function (event) {
+        if (event.target === modal) {
+          modal.classList.remove('active');
+        }
+      });
+
+      // Close modal on Escape key
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && modal.classList.contains('active')) {
+          modal.classList.remove('active');
         }
       });
     })();
