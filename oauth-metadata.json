@@ -1,7 +1,13 @@
 {
-  "name": "Jambo (placeholder)",
-  "description": "Static site for OAuth verification and partner requirements",
-  "scopes": ["identify", "read", "bot"],
-  "redirect_urls": ["https://yourusername.github.io/callback"],
-  "install_url": "https://example.com/install"
+  "name": "Jambo FNLB",
+  "description": "FNLB bot lobby integration app",
+  "homepage": "https://jambofnlb.netlify.app",
+  "redirect_uris": [
+    "https://jambofnlb.netlify.app/callback"
+  ],
+  "scopes": [
+    "read",
+    "run"
+  ],
+  "version": "1.0.0"
 }
