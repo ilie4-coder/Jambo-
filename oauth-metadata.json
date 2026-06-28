@@ -1,0 +1,7 @@
+{
+  "name": "Jambo (placeholder)",
+  "description": "Static site for OAuth verification and partner requirements",
+  "scopes": ["identify", "read", "bot"],
+  "redirect_urls": ["https://yourusername.github.io/callback"],
+  "install_url": "https://example.com/install"
+}
