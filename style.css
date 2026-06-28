@@ -213,3 +213,31 @@ body{
 
 /* Accessibility improvements */
 a:focus, button:focus { outline:3px solid rgba(11,118,239,0.15); outline-offset:2px; }
+
+/* User requested simple mobile/desktop CSS overrides */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+.btn {
+  display: inline-block;
+  padding: 12px 20px;
+  background: #4a6cf7;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+.container {
+  padding: 20px;
+}
+
+@media (max-width: 600px) {
+  .btn {
+    width: 90%;
+    display: block;
+    margin: 10px auto;
+  }
+}
