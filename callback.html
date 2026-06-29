@@ -7,6 +7,15 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <h1>Jambo</h1>
+        <p class="tagline">FNLB Bot Lobby System</p>
+      </div>
+    </div>
+  </header>
+
   <main class="container" style="padding-top:2rem; padding-bottom:2rem;">
     <article id="result" class="card" aria-live="polite">
       <h1>OAuth Callback</h1>
@@ -16,7 +25,16 @@
     </article>
   </main>
 
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> Jambo — FNLB App</p>
+    </div>
+  </footer>
+
   <script>
+    // Set current year in footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+
     (function () {
       // Parse query parameters
       var params = new URLSearchParams(window.location.search);
@@ -26,27 +44,36 @@
       var rawEl = document.getElementById('raw');
       var nextEl = document.getElementById('next');
 
-      if (error) {
-        // Show error details to reviewers
-        messageEl.textContent = 'Authentication failed: ' + error;
+      function showError(msg, raw) {
+        messageEl.textContent = msg;
         rawEl.style.display = 'block';
-        rawEl.textContent = 'Full query: ' + window.location.search;
+        rawEl.textContent = raw || 'Full query: ' + window.location.search;
         nextEl.innerHTML = 'If you believe this is an error, check the redirect URI registered with FNLB and try again.';
         document.title = 'Auth Failed';
+      }
+
+      if (error) {
+        // Show error details to reviewers
+        showError('Authentication failed: ' + error);
       } else if (code) {
-        // Show clear successful authentication
-        messageEl.innerHTML = 'Authentication successful.';
+        // Store login state so user stays "connected"
+        try {
+          localStorage.setItem('fnlb_connected', 'true');
+          localStorage.setItem('fnlb_code', code);
+        } catch (e) {
+          // If localStorage is unavailable, continue but warn in console
+          console.warn('localStorage unavailable:', e);
+        }
+
+        // Show clear successful authentication inside existing layout
+        messageEl.textContent = 'Authentication successful.';
         rawEl.style.display = 'block';
         rawEl.textContent = 'Authorization code: ' + code;
-        nextEl.innerHTML = 'You may now close this tab and continue using the app. For verification, the authorization code is shown above.';
+        nextEl.innerHTML = '<a class="btn btn-primary" href="/">Go to dashboard</a>';
         document.title = 'Auth Successful';
       } else {
         // No parameters found
-        messageEl.textContent = 'No authorization response detected.';
-        rawEl.style.display = 'block';
-        rawEl.textContent = 'Full URL: ' + window.location.href;
-        nextEl.innerHTML = 'Ensure the FNLB authorize URL uses redirect_uri=https%3A%2F%2Fjambofnlb.netlify.app%2Fcallback and try again.';
-        document.title = 'Auth Result';
+        showError('No authorization response detected.', 'Full URL: ' + window.location.href);
       }
     })();
   </script>
