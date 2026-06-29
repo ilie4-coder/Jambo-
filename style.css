@@ -241,3 +241,8 @@ body {
     margin: 10px auto;
   }
 }
+
+/* Fix: ensure hero content and buttons are visible on desktop */
+.hero-content { position: relative; z-index: 2; }
+.hero-illustration { position: relative; z-index: 1; pointer-events: none; }
+.actions .btn { display: inline-block; }
