@@ -1,55 +1,54 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>OAuth Callback - Jambo FNLB</title>
-  <link rel="stylesheet" href="style.css" />
-  <style>
-    .callback-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      text-align: center;
-    }
-    .callback-card {
-      max-width: 500px;
-      padding: 2rem;
-    }
-    .success-icon {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-    }
-  </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jambo OAuth Callback</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="callback-container">
-    <article class="card callback-card">
-      <div class="success-icon">✓</div>
-      <h1>OAuth Callback Received</h1>
-      <p>Your authorization has been processed. You can now close this window or return to the app.</p>
-      <p>
-        <a class="btn btn-primary" href="index.html">Back to Home</a>
-      </p>
-      <hr style="margin: 2rem 0; border: none; border-top: 1px solid #e0e0e0;">
-      <p style="font-size: 0.9rem; color: #666;">
-        <strong>For developers:</strong> Query parameters from your OAuth provider will be available in the URL. 
-        Parse the authorization code and exchange it with your OAuth provider's token endpoint.
-      </p>
+  <main class="container" style="padding-top:2rem; padding-bottom:2rem;">
+    <article id="result" class="card" aria-live="polite">
+      <h1>OAuth Callback</h1>
+      <p id="message">Processing...</p>
+      <pre id="raw" class="mono" style="display:none;"></pre>
+      <p id="next" style="margin-top:1rem;"></p>
     </article>
-  </div>
+  </main>
 
   <script>
-    // Log OAuth callback parameters (for debugging)
-    console.log('OAuth Callback URL:', window.location.href);
-    console.log('URL Params:', new URLSearchParams(window.location.search));
-    
-    // Optional: Auto-close after successful auth (customize as needed)
-    // setTimeout(function() {
-    //   window.close();
-    // }, 3000);
+    (function () {
+      // Parse query parameters
+      var params = new URLSearchParams(window.location.search);
+      var code = params.get('code');
+      var error = params.get('error');
+      var messageEl = document.getElementById('message');
+      var rawEl = document.getElementById('raw');
+      var nextEl = document.getElementById('next');
+
+      if (error) {
+        // Show error details to reviewers
+        messageEl.textContent = 'Authentication failed: ' + error;
+        rawEl.style.display = 'block';
+        rawEl.textContent = 'Full query: ' + window.location.search;
+        nextEl.innerHTML = 'If you believe this is an error, check the redirect URI registered with FNLB and try again.';
+        document.title = 'Auth Failed';
+      } else if (code) {
+        // Show clear successful authentication
+        messageEl.innerHTML = 'Authentication successful.';
+        rawEl.style.display = 'block';
+        rawEl.textContent = 'Authorization code: ' + code;
+        nextEl.innerHTML = 'You may now close this tab and continue using the app. For verification, the authorization code is shown above.';
+        document.title = 'Auth Successful';
+      } else {
+        // No parameters found
+        messageEl.textContent = 'No authorization response detected.';
+        rawEl.style.display = 'block';
+        rawEl.textContent = 'Full URL: ' + window.location.href;
+        nextEl.innerHTML = 'Ensure the FNLB authorize URL uses redirect_uri=https%3A%2F%2Fjambofnlb.netlify.app%2Fcallback and try again.';
+        document.title = 'Auth Result';
+      }
+    })();
   </script>
 </body>
 </html>

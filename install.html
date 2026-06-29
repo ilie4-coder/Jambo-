@@ -10,9 +10,22 @@
   <main class="container" style="padding-top:2rem; padding-bottom:2rem;">
     <article class="card">
       <h1>Install Jambo</h1>
-      <p>Click continue to use FNLB integration.</p>
-      <p><a class="btn btn-primary" href="https://fnlb.net/oauth2/authorize?client_id=6a39c374ac69cccda0fa24bf&scope=bots.read+bots.run&response_type=code&redirect_uri=https%3A%2F%2Fjambofnlb.netlify.app%2Fcallback" target="_blank" rel="noopener noreferrer">Continue</a></p>
+      <p>Starting the FNLB OAuth flow. If nothing happens automatically, click Continue.</p>
+      <p>
+        <a class="btn btn-primary" href="https://fnlb.net/oauth2/authorize?client_id=6a39c374ac69cccda0fa24bf&scope=bots.read+bots.run&response_type=code&redirect_uri=https%3A%2F%2Fjambofnlb.netlify.app%2Fcallback" aria-label="Continue to FNLB OAuth">Continue</a>
+      </p>
     </article>
   </main>
+
+  <script>
+    // Start the FNLB OAuth flow immediately in the same tab.
+    (function () {
+      var authUrl = 'https://fnlb.net/oauth2/authorize?client_id=6a39c374ac69cccda0fa24bf&scope=bots.read+bots.run&response_type=code&redirect_uri=https%3A%2F%2Fjambofnlb.netlify.app%2Fcallback';
+      // Small delay to let the page render and allow users to cancel if needed.
+      setTimeout(function () {
+        window.location.href = authUrl;
+      }, 300);
+    })();
+  </script>
 </body>
 </html>
