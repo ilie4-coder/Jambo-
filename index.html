@@ -38,7 +38,7 @@
         <p class="lead">Official static site for OAuth verification and partner app requirements.</p>
         <p class="actions">
           <!-- Install button opens the FNLB OAuth authorize URL -->
-          <a class="btn btn-primary" href="https://fnlb.net/oauth2/authorize?client_id=6a39c374ac69cccda0fa24bf&scope=bots.read+bots.run&response_type=code&redirect_uri=https%3A%2F%2Fjambofnlb.netlify.app%2Fcallback" target="_blank" rel="noopener noreferrer" aria-label="Install Jambo via FNLB">Install App</a>
+          <a class="btn btn-primary" href="https://fnlb.net/oauth2/authorize?client_id=6a39c374ac69cccda0fa24bf&scope=bots.read+bots.run&response_type=code&redirect_uri=https%3A%2F%2Fjambofnlb.netlify.app%2Fcallback" aria-label="Install Jambo via FNLB">Install App</a>
           <a class="btn btn-secondary" href="oauth-metadata.json" aria-label="View OAuth metadata">View OAuth Metadata</a>
         </p>
       </div>
@@ -54,26 +54,11 @@
         <p>Click "Install App" to start the OAuth flow and install the Jambo integration.</p>
       </article>
 
-      <aside class="card">
-        <h3>OAuth / Partner App Setup</h3>
-        <p>Register your redirect URL(s) and minimal scopes required by your integration. Use the following example pattern for GitHub Pages deployments or your own domain:</p>
-        <pre class="mono">https://yourusername.github.io/Jambo-/callback</pre>
-        <p>Make sure the redirect URL you register with the provider matches the one used by your app.</p>
-      </aside>
-
       <article class="card">
         <h3>Legal</h3>
         <ul>
           <li><a href="tos.html">Terms of Service</a></li>
           <li><a href="privacy.html">Privacy Policy</a></li>
-        </ul>
-      </article>
-
-      <article class="card">
-        <h3>Notes</h3>
-        <ul>
-          <li>This is a static site — no backend required for verification pages.</li>
-          <li>Deploy to GitHub Pages or any static host (Netlify, Vercel) for a public URL.</li>
         </ul>
       </article>
     </section>
